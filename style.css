@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap");
+/* @import "tailwindcss"; */
+
+body {
+    background-color: #2d3a8c;
+}
+
+.card-container {
+    height: 90vh;
+    min-height: fit-content;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-top: 20px;
+}
+
+.form-container {
+    background-color: #f5f7fa;
+    border-radius: 10px;
+    border: 1px solid #cbd2d9;
+}
+
+.label {
+    color: #7a8794;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.inputElement {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #cbd2d9;
+    padding-left: 10px;
+}
+
+.btn {
+    background-color: #21396c;
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: blue;
+    color: #fff;
+
+}
+
+#bookmarksList {
+    margin: 0;
+    padding: 0;
+}
+
+.item {
+    border-radius: 5px;
+    background-color: #f5f7fa;
+    border: 1px solid #cbd2d9;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 13px;
+}
+
+.siteName {
+    color: #323f4b;
+}
+
+.loginCard, .registerCard {
+    border-radius: 8px;
+}

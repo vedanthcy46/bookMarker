@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row d-none" id="loading">
+            <div class="col-12 d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+                <!-- <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div> -->
+                <p class="text-white mt-3 ml-3">Loading...</p>
+            </div>
+        </div>
+
+        <div class="row d-none" id="registerPage">
+            <div class="col-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div class="registerCard p-3 bg-white w-75">
+                    <h1 class="h4">Register</h1>
+                    <div class="formContainer">
+                        <form id="registerForm">
+                            <div class="mt-3">
+                                <label for="registerName" class="label">Name</label>
+                                <input type="text" id="registerName" class="d-block w-100 inputElement" />
+                                <p class="error" id="registerNameErr"></p>
+                            </div>
+                            <div class="mt-3">
+                                <label for="registerEmail" class="label">Email</label>
+                                <input type="email" id="registerEmail" class="d-block w-100 inputElement" />
+                                <p class="error" id="registerEmailErr"></p>
+                            </div>
+                            <div class="mt-3">
+                                <label for="registerPassword" class="label">Password</label>
+                                <input type="password" id="registerPassword" class="d-block w-100 inputElement" />
+                                <p class="error" id="registerPasswordErr"></p>
+                            </div>
+                            <div class="mt-3">
+                                <label for="registerConfPassword" class="label">Confirm Password</label>
+                                <input type="password" id="registerConfPassword" class="d-block w-100 inputElement" />
+                                <p class="error" id="registerConfPasswordErr"></p>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </form>
+                        <p id="registerWrong" class="error mt-3"></p>
+                        <div class="mt-4" style="color: #323f4b; font-size: 13px;">
+                            <!-- <p class="m-0 ">Not Registered?<a href="#forgotPasswordPage">change password</a></p> -->
+                            <p>Already registered?<a href="#loginPage" id="clickLogin">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LOGIN -->
+        <div class="row" id="loginPage">
+            <div class="col-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div class="loginCard p-3 bg-white w-75">
+                    <h1 class="h4">Login</h1>
+                    <div class="formContainer">
+                        <form id="loginForm">
+                            <div class="mt-3">
+                                <label for="loginEmail" class="label">Email</label>
+                                <input type="email" id="loginEmail" class="d-block w-100 inputElement" />
+                                <p class="error" id="loginEmailErr"></p>
+                            </div>
+                            <div class="mt-3">
+                                <label for="loginPassword" class="label">Password</label>
+                                <input type="password" id="loginPassword" class="d-block w-100 inputElement" />
+                                <p class="error" id="loginPasswordErr"></p>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                        <p id="loginWrong" class="error mt-3"></p>
+                        <div class="mt-4" style="color: #323f4b; font-size: 13px;">
+                            <p class="m-0 ">Not Registered?<a href="#forgotPasswordPage">change password</a></p>
+                            <p>Not Registered?<a href="#registerPage" id="clickRegister">Register</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-none" id="bookMarkerPage">
+            <!-- BOOK MARKER -->
+            <div class="col-12 mt-4">
+                <p class="text-white mb-0">Hello</p>
+                <div>
+                    <h1 class="text-white mb-0 h2" id="userName">Jane Doe</h1>
+                    <div  class="text-right">
+                        <button class="btn" id="logout" style="background-color: rgb(200, 71, 71);">Logout</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 bg-white card-container d-flex flex-column justify-content-start p-3">
+                <div class="card1 p-3">
+                    <h1 class="h4">Bookmark Your Favorite Sites</h1>
+                    <div class="form-container p-3 mt-5">
+                        <form id="bookmarkForm">
+                            <div class="mb-4">
+                                <label for="siteNameInput" class="label">SITE NAME</label>
+                                <input placeholder="Enter site name" type="text" id="siteNameInput"
+                                    class="inputElement" />
+                                <p id="siteNameErrMsg" class="error"></p>
+                            </div>
+                            <div class="mb-4">
+                                <label for="siteUrlInput" class="label">SITE URL</label>
+                                <input placeholder="Enter site URL" type="text" id="siteUrlInput"
+                                    class="inputElement" />
+                                <p id="siteUrlErrMsg" class="error"></p>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn" id="submitBtn" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <ul type="none" id="bookmarksList" class="mt-4">
+                        <!-- li class="item p-3 mb-4">
+                            <p class="siteName mb-2">Google</p>
+                            <a target="_blank" href="www.google.com">https://www.google.com/</a>
+                            </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./script.js"></script>
+
+</html>
