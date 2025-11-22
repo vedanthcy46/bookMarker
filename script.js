@@ -16,8 +16,16 @@ localStorage.setItem('book', JSON.stringify(book));
 let user = JSON.parse(localStorage.getItem('user')) || [];
 localStorage.setItem('user', JSON.stringify(user));
 
+let bookMarkerPage = document.getElementById('bookMarkerPage');
+let saveBtn = document.getElementById('saveBtn');
+let loginPage = document.getElementById('loginPage');
+let loading = document.getElementById('loading');
+let registerPage = document.getElementById('registerPage');
 let id = null;
 
+
+// localStorage.removeItem('book');
+// localStorage.removeItem('user');
 
 // ------------------ INPUT VALIDATION ------------------
 
@@ -32,32 +40,57 @@ siteUrlInput.addEventListener("input", function () {
 
 // ------------------ ADD BOOKMARK ITEM ------------------
 
+
+
 function bookMark(obj) {
     let listItem = document.createElement("li");
     listItem.classList.add("item", "p-3", "mb-4");
-
+    
     let index = user.findIndex(el => el.userId === obj.userId);
     let name = index !== -1 ? user[index].name : null;
-
+    
     // update user name top
     userName.textContent = name;
-
+    
     let nameEl = document.createElement('p');
     nameEl.textContent = obj.name;
     nameEl.classList.add('siteName', 'mb-2');
     listItem.appendChild(nameEl);
-
+    
+    let div = document.createElement('div');
+    div.classList.add('d-flex', 'justify-content-between');
+    listItem.appendChild(div);
+    
     let linkEl = document.createElement("a");
     linkEl.href = obj.url;
     linkEl.textContent = obj.url;
     linkEl.target = "_blank";
-    listItem.appendChild(linkEl);
-
+    div.appendChild(linkEl);
+    
+    let deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fa-solid', 'fa-delete-left')
+    deleteIcon.style.cursor = 'pointer';
+    div.appendChild(deleteIcon);
+    
+    deleteIcon.addEventListener('click', function(){
+        bookmarksList.removeChild(listItem);
+        let index = book.findIndex(function(el){
+            if (el.userId === id && el.bookId === obj.bookId){
+                return  true;
+            }
+        })
+        book = book.filter(el=>{
+            el.bookId !== obj.bookId 
+        })
+    })
+    
     bookmarksList.appendChild(listItem);
-
+    
     siteNameInput.value = "";
     siteUrlInput.value = "";
 }
+
+
 
 
 bookmarkForm.addEventListener("submit", function (event) {
@@ -73,16 +106,38 @@ bookmarkForm.addEventListener("submit", function (event) {
     // Create unique bookmark object
     let obj = {
         userId: id,
+        bookId:book.length + 1,
         name: siteName,
         url: siteUrl
     };
 
     book.push(obj);
-    localStorage.setItem("book", JSON.stringify(book));
-
+    // localStorage.setItem("book", JSON.stringify(book));
+    
     bookMark(obj);
 });
 
+let el1 = user.find(function(el){
+    if (el.isActive === true){
+        return true;
+    }
+})
+if (el1) {
+    id = el1.userId;
+    userName.textContent = el1.name;
+
+    bookMarkerPage.classList.remove('d-none');
+    loginPage.classList.add('d-none');
+
+    loadItems();
+}
+
+// ------------------Save Button ----------------------
+
+saveBtn.addEventListener('click', function(){
+    localStorage.setItem("book", JSON.stringify(book));
+
+})
 
 // ------------------ LOAD USER BOOKMARKS ------------------
 
@@ -106,10 +161,6 @@ let loginEmailErr = document.getElementById('loginEmailErr');
 let loginPasswordErr = document.getElementById('loginPasswordErr');
 let loginWrong = document.getElementById('loginWrong');
 
-let loginPage = document.getElementById('loginPage');
-let bookMarkerPage = document.getElementById('bookMarkerPage');
-let loading = document.getElementById('loading');
-let registerPage = document.getElementById('registerPage');
 
 function check(email, pass) {
     return user.find(el => el.email === email && el.pass === pass) || null;
@@ -134,6 +185,10 @@ loginForm.addEventListener("submit", function (event) {
     if (result) {
         id = result.userId;
         userName.textContent = result.name;
+        let index = user.indexOf(result);
+        console.log(index)
+        user[index].isActive = true;
+        localStorage.setItem('user', JSON.stringify(user));
         loadItems();
 
         loading.classList.remove("d-none");
@@ -155,6 +210,16 @@ loginForm.addEventListener("submit", function (event) {
 let logout = document.getElementById("logout");
 
 logout.addEventListener("click", function () {
+    console.log(id);
+    let index = user.findIndex(function(el){
+        if (el.userId === id){
+            return true;
+        }
+    })
+    console.log(index);
+    if (index !== -1)
+        user[index].isActive = false;
+    localStorage.setItem('user', JSON.stringify(user));
     id = null;
     bookmarksList.innerHTML = "";
 
@@ -228,7 +293,8 @@ registerForm.addEventListener("submit", function (event) {
         userId: 1000 + user.length + 1,
         name: nameVal,
         email: emailVal,
-        pass: passVal
+        pass: passVal,
+        isActive:false
     };
 
     user.push(newUser);
